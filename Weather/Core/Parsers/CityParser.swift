@@ -1,22 +1,15 @@
 //
-//  Parser.swift
+//  CityParser.swift
 //  Weather
 //
-//  Created by Margarita Slesareva on 12.07.2023.
+//  Created by Margarita Slesareva on 15.07.2023.
 //
 
 import Foundation
 
-struct Coordinates {
-    let latitude: Double
-    let longitude: Double
-}
-
-protocol Parser {
-    func parseData(data: Data) -> Coordinates?
-}
-
 final class CityParser: Parser {
+    
+    typealias Object = Coordinates
     
     func parseData(data: Data) -> Coordinates? {
         do {

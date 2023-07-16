@@ -19,7 +19,7 @@ struct WeatherRequest: Request {
     
     var urlRequest: URLRequest {
         var urlComponents = baseUrlComponents
-        urlComponents.path = "data/2.5/weather"
+        urlComponents.path = "/data/2.5/weather"
         urlComponents.queryItems?.append(contentsOf: [
             URLQueryItem(name: "lat", value: "\(latitude ?? 0)"),
             URLQueryItem(name: "lon", value: "\(longitude ?? 0)")

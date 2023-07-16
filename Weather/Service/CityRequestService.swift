@@ -8,30 +8,30 @@
 import Foundation
 
 protocol CityRequestService {
-    func requestCityData(city: String, competion: @escaping (Result<Coordinates, Error>) -> Void)
+    func requestCityData(city: String, completion: @escaping (Result<Coordinates, Error>) -> Void)
 }
 
 final class CityRequestServiceImpl: CityRequestService {
     
     private let networkManager: NetworkManager
-    private let cityParser: Parser
+    private let cityParser: CityParser
     
-    init(networkManager: NetworkManager = NetworkManagerImpl(), cityParser: Parser = CityParser()) {
+    init(networkManager: NetworkManager, cityParser: CityParser) {
         self.networkManager = networkManager
         self.cityParser = cityParser
     }
     
-    func requestCityData(city: String, competion: @escaping (Result<Coordinates, Error>) -> Void) {
+    func requestCityData(city: String, completion: @escaping (Result<Coordinates, Error>) -> Void) {
         let cityRequest = CityRequest(city: city)
         
         networkManager.sendRequest(request: cityRequest) { result in
             switch result {
             case .success(let data):
                 if let coordinates = self.cityParser.parseData(data: data) {
-                    competion(.success(coordinates))
+                    completion(.success(coordinates))
                 }
             case .failure(let error):
-                competion(.failure(error))
+                completion(.failure(error))
             }
         }
     }

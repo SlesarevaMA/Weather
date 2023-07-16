@@ -8,11 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let cityRequestService: CityRequestService
+    private let weatherRequestService: WeatherRequestService
     
-    private let service: CityRequestService
-
-    init(service: CityRequestService = CityRequestServiceImpl()) {
-        self.service = service
+    
+    
+    init(cityRequestService: CityRequestService, weatherRequestService: WeatherRequestService) {
+        self.cityRequestService = cityRequestService
+        self.weatherRequestService = weatherRequestService
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -30,7 +33,7 @@ class ViewController: UIViewController {
     }
     
     private func requestCityData() {
-        service.requestCityData(city: "Moscow") { [weak self] result in
+        cityRequestService.requestCityData(city: "Moscow") { [weak self] result in
             switch result {
             case .success(let coordinates):
                 self?.requestWeather(for: coordinates)
@@ -41,6 +44,13 @@ class ViewController: UIViewController {
     }
     
     private func requestWeather(for coordinates: Coordinates) {
-        print(coordinates)
+        weatherRequestService.requestWeather(coordinates: coordinates) { result in
+            switch result {
+            case .success(let weather):
+                print(weather)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
