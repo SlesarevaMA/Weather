@@ -19,7 +19,7 @@ struct CityRequest: Request {
         urlComponents.path = "/geo/1.0/direct"
         urlComponents.queryItems?.append(contentsOf: [
             URLQueryItem(name: "q", value: city),
-            URLQueryItem(name: "limit", value: "5")
+            URLQueryItem(name: "limit", value: "1")
         ])
         
         guard let url = urlComponents.url else {

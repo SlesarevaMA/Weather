@@ -8,11 +8,11 @@
 final class ServiceAssembly {
     static let cityRequestService: CityRequestService = CityRequestServiceImpl(
         networkManager: CoreAssembly.neworkManager,
-        cityParser: CoreAssembly.cityParser
+        decoder: CoreAssembly.decoder
     )
     
     static let weatherRequestService: WeatherRequestService = WeatherRequestServiceImpl(
         networkManager: CoreAssembly.neworkManager,
-        weatherParser: CoreAssembly.weatherParser
+        decoder: CoreAssembly.decoder
     )
 }

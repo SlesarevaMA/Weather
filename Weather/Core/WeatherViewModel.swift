@@ -9,9 +9,9 @@ import Foundation
 
 struct WeatherViewModel {
     let description: String
-    let temperature: Double
+    let temperature: Int
     let feelsLikeTemperature: Double
     let minTemperature: Double
     let maxTemperature: Double
-    let pressure: Double
+    let pressure: Int
 }
