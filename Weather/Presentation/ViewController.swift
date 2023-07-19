@@ -8,6 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
+    private let todayWeatherView = TodayWeatherView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -19,6 +21,6 @@ class ViewController: UIViewController {
             mapper: MapperImpl()
         )
         
-        provider.requestCityData()
+        provider.getData(for: "")
     }
 }

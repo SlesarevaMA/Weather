@@ -1,0 +1,10 @@
+//
+//  env.xcconfig
+//  Weather
+//
+//  Created by Margarita Slesareva on 12.07.2023.
+//
+
+#include "Pods/Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"
+
+APPID = 32b237328a96713ce0b557ab9fc5fdfe
