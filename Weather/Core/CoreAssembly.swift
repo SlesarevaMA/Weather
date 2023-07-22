@@ -10,6 +10,4 @@ import Foundation
 final class CoreAssembly {
     static let neworkManager: NetworkManager = NetworkManagerImpl()
     static let decoder: JSONDecoder = WeatherJSONDecoder()
-//    static let cityParser = CityParser()
-//    static let weatherParser = WeatherParser()
 }

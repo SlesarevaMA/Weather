@@ -17,7 +17,7 @@ final class MapperImpl: Mapper {
     
     func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherViewModel {
         return WeatherViewModel(
-            description: apiModel.weather.description,
+            description: apiModel.weather[0].description,
             temperature: apiModel.main.temp,
             feelsLikeTemperature: apiModel.main.feelsLike,
             minTemperature: apiModel.main.tempMin,

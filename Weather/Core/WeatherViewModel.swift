@@ -9,7 +9,7 @@ import Foundation
 
 struct WeatherViewModel {
     let description: String
-    let temperature: Int
+    let temperature: Double
     let feelsLikeTemperature: Double
     let minTemperature: Double
     let maxTemperature: Double

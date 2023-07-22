@@ -19,4 +19,3 @@ struct City: Codable {
 struct CityResponse: Codable {
     let city: [City]
 }
-

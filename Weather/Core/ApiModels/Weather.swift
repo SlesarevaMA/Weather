@@ -31,7 +31,7 @@ struct Coord: Codable {
 }
 
 struct Main: Codable {
-    let temp: Int
+    let temp: Double
     let feelsLike, tempMin, tempMax: Double
     let pressure, humidity, seaLevel, grndLevel: Int
 }
