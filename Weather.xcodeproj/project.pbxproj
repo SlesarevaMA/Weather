@@ -15,6 +15,8 @@
 		AB9D539B2A65EB3C00A01F6E /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D539A2A65EB3C00A01F6E /* Weather.swift */; };
 		AB9D53A22A6750E600A01F6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABDF216E2A5DBB2700320152 /* AppDelegate.swift */; };
 		AB9D53B62A68109800A01F6E /* TodayWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D53B52A68109700A01F6E /* TodayWeatherView.swift */; };
+		AB9D53C82A7135B100A01F6E /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D53C72A7135B100A01F6E /* Bindable.swift */; };
+		AB9D53CA2A7135F900A01F6E /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB9D53C92A7135F900A01F6E /* ViewModel.swift */; };
 		ABAC5EBB2A62D285000DE833 /* WeatherRequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC5EBA2A62D285000DE833 /* WeatherRequestService.swift */; };
 		ABAC5EC02A62D3C7000DE833 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC5EBF2A62D3C7000DE833 /* Coordinates.swift */; };
 		ABAC5EC42A63508A000DE833 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAC5EC32A63508A000DE833 /* WeatherViewModel.swift */; };
@@ -42,6 +44,8 @@
 		AB9D539C2A674AFD00A01F6E /* env_release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = env_release.xcconfig; sourceTree = "<group>"; };
 		AB9D53A52A67516F00A01F6E /* RxRelay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxRelay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB9D53B52A68109700A01F6E /* TodayWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayWeatherView.swift; sourceTree = "<group>"; };
+		AB9D53C72A7135B100A01F6E /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		AB9D53C92A7135F900A01F6E /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		ABAC5EBA2A62D285000DE833 /* WeatherRequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequestService.swift; sourceTree = "<group>"; };
 		ABAC5EBF2A62D3C7000DE833 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		ABAC5EC32A63508A000DE833 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
@@ -110,6 +114,14 @@
 			path = Decoding;
 			sourceTree = "<group>";
 		};
+		AB9D53CB2A7136B300A01F6E /* ModelData */ = {
+			isa = PBXGroup;
+			children = (
+				ABAC5EC32A63508A000DE833 /* WeatherViewModel.swift */,
+			);
+			path = ModelData;
+			sourceTree = "<group>";
+		};
 		ABDF21622A5DBB2700320152 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +148,8 @@
 				ABDF21912A5ED5CA00320152 /* Core */,
 				ABDF21822A5DBC0D00320152 /* Service */,
 				ABDF21942A5ED62400320152 /* Presentation */,
+				AB9D53C72A7135B100A01F6E /* Bindable.swift */,
+				AB9D53C92A7135F900A01F6E /* ViewModel.swift */,
 				ABDF218E2A5EC74800320152 /* Supporting Files */,
 			);
 			path = Weather;
@@ -178,12 +192,12 @@
 		ABDF21912A5ED5CA00320152 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				AB9D53CB2A7136B300A01F6E /* ModelData */,
 				AB9D53912A6573F200A01F6E /* Decoding */,
 				AB9D53902A6573B800A01F6E /* ApiModels */,
 				ABAC5EC52A64379E000DE833 /* CoreAssembly.swift */,
 				ABDF21832A5DBD0200320152 /* NetworkManager.swift */,
 				ABAC5EBF2A62D3C7000DE833 /* Coordinates.swift */,
-				ABAC5EC32A63508A000DE833 /* WeatherViewModel.swift */,
 				ABDF21872A5EB60000320152 /* Requests */,
 			);
 			path = Core;
@@ -322,8 +336,10 @@
 				ABAC5EC02A62D3C7000DE833 /* Coordinates.swift in Sources */,
 				ABDF21842A5DBD0200320152 /* NetworkManager.swift in Sources */,
 				AB9D53B62A68109800A01F6E /* TodayWeatherView.swift in Sources */,
+				AB9D53C82A7135B100A01F6E /* Bindable.swift in Sources */,
 				ABDF21962A5ED66000320152 /* CityRequestService.swift in Sources */,
 				ABAC5EC42A63508A000DE833 /* WeatherViewModel.swift in Sources */,
+				AB9D53CA2A7135F900A01F6E /* ViewModel.swift in Sources */,
 				ABDF21892A5EB61900320152 /* Request.swift in Sources */,
 				AB9D53A22A6750E600A01F6E /* AppDelegate.swift in Sources */,
 				AB9D539B2A65EB3C00A01F6E /* Weather.swift in Sources */,

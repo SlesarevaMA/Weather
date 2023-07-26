@@ -8,6 +8,9 @@
 import UIKit
 import SnapKit
 
+import RxSwift
+import RxCocoa
+
 private enum Metrics {
     static let horizontalSpacing: CGFloat = 15
     static let verticalSpacing: CGFloat = 8
@@ -25,6 +28,8 @@ final class TodayWeatherView: UIView {
         super.init(frame: frame)
         
         configure()
+        
+//        cityTextField.rx.
     }
     
     required init?(coder: NSCoder) {

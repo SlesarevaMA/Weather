@@ -5,8 +5,6 @@
 //  Created by Margarita Slesareva on 16.07.2023.
 //
 
-import Foundation
-
 struct WeatherViewModel {
     let description: String
     let temperature: Double
