@@ -6,23 +6,28 @@
 //
 
 class Bindable<T> {
-  typealias Listener = (T) -> Void
-
-  var value: T {
-    didSet {
-      listener?(value)
+    typealias Listener = (T) -> Void
+    
+    var value: T? {
+        didSet {
+            guard let value else {
+                return
+            }
+            
+            listener?(value)
+        }
     }
-  }
     
-  private var listener: Listener?
-
-  init(_ value: T) {
-    self.value = value
-  }
+    private var listener: Listener?
     
-  func bind(_ listener: Listener?) {
-    self.listener = listener
-    listener?(value)
-  }
     
+    func bind(_ listener: Listener?) {
+        self.listener = listener
+        
+        guard let value else {
+            return
+        }
+        
+        listener?(value)
+    }
 }

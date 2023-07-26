@@ -1,11 +1,11 @@
 //
-//  WeatherViewModel.swift
+//  WeatherModel.swift
 //  Weather
 //
 //  Created by Margarita Slesareva on 16.07.2023.
 //
 
-struct WeatherViewModel {
+struct WeatherModel {
     let description: String
     let temperature: Double
     let feelsLikeTemperature: Double

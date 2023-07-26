@@ -7,7 +7,7 @@
 
 protocol Mapper {
     func mapCoordinates(from apiModel: City) -> Coordinates
-    func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherViewModel
+    func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherModel
 }
 
 final class MapperImpl: Mapper {
@@ -15,8 +15,8 @@ final class MapperImpl: Mapper {
         return Coordinates(latitude: apiModel.lat, longitude: apiModel.lon)
     }
     
-    func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherViewModel {
-        return WeatherViewModel(
+    func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherModel {
+        return WeatherModel(
             description: apiModel.weather[0].description,
             temperature: apiModel.main.temp,
             feelsLikeTemperature: apiModel.main.feelsLike,

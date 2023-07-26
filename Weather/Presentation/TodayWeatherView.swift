@@ -14,6 +14,7 @@ import RxCocoa
 private enum Metrics {
     static let horizontalSpacing: CGFloat = 15
     static let verticalSpacing: CGFloat = 8
+    static let maxVerticalSpacing: CGFloat = 25
 }
 
 final class TodayWeatherView: UIView {
@@ -24,12 +25,22 @@ final class TodayWeatherView: UIView {
     private let descriptionLabel = UILabel()
     private let pressureLabel = UILabel()
     
+    private var city: String {
+        get {
+            return cityTextField.text ?? ""
+        }
+        
+        set {
+            cityTextField.text = newValue
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         configure()
         
-//        cityTextField.rx.
+//        cityTextField.rx.textInput
     }
     
     required init?(coder: NSCoder) {
@@ -37,18 +48,15 @@ final class TodayWeatherView: UIView {
     }
     
     func getCity() -> String {
-        guard let city = cityTextField.text else {
-            return "Moscow"
-        }
-        
         if city.isEmpty {
+            cityTextField.text = "Moscow"
             return "Moscow"
         }
         
         return city
     }
     
-    func configure(with model: WeatherViewModel) {
+    func configure(with model: WeatherModel) {
         temperatureLabel.text = "\(model.temperature)"
         feelsLikeTemperatureLabel.text = "\(model.feelsLikeTemperature)"
         extremumTemperatureLabel.text = "min: \(model.minTemperature), max: \(model.maxTemperature)"
@@ -70,9 +78,8 @@ final class TodayWeatherView: UIView {
     
     private func addConstraint() {
         cityTextField.snp.makeConstraints {
-            $0.leading.greaterThanOrEqualToSuperview().offset(Metrics.horizontalSpacing)
-            $0.top.equalToSuperview().offset(Metrics.verticalSpacing)
             $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
         }
         
         temperatureLabel.snp.makeConstraints {
@@ -86,12 +93,16 @@ final class TodayWeatherView: UIView {
         }
         
         extremumTemperatureLabel.snp.makeConstraints {
-            $0.top.equalTo(feelsLikeTemperatureLabel.snp.bottom).offset(Metrics.verticalSpacing)
+            $0.top
+                .equalTo(feelsLikeTemperatureLabel.snp.bottom)
+                .offset(Metrics.verticalSpacing)
             $0.centerX.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(extremumTemperatureLabel.snp.bottom).offset(Metrics.verticalSpacing)
+            $0.top
+                .equalTo(extremumTemperatureLabel.snp.bottom)
+                .offset(Metrics.verticalSpacing)
             $0.centerX.equalToSuperview()
         }
         
@@ -102,6 +113,19 @@ final class TodayWeatherView: UIView {
     }
     
     private func configureViews() {
+//        cityTextField.addTarget(self, action: #selector(setText), for: .valueChanged)
         cityTextField.placeholder = "City"
+        cityTextField.borderStyle = .roundedRect
+//        cityTextField.delegate = self
     }
+    
+//    @objc private func setText() {
+//        city = cityTextField.text ?? ""
+//    }
 }
+
+//extension TodayWeatherView: UITextFieldDelegate {
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        city = textField.text ?? ""
+//    }
+//}

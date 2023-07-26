@@ -11,20 +11,13 @@ import SnapKit
 class ViewController: UIViewController {
     private let todayWeatherView = TodayWeatherView()
     
-    private let provider = DataProviderImpl(
-        cityRequestService: ServiceAssembly.cityRequestService,
-        weatherRequestService: ServiceAssembly.weatherRequestService,
-        mapper: MapperImpl()
-    )
-    
-    private var city: String {
-        return todayWeatherView.getCity()
-    }
+    private let viewModel: ViewModel = ViewModelImpl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
+        setupBindings()
+        
         configure()
         addConstraint()
     }
@@ -32,7 +25,17 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        configureWithData()
+        let city = todayWeatherView.getCity()
+        
+        viewModel.addCity(city: city)
+    }
+    
+    func setupBindings() {
+        viewModel.weatherModel.bind({ model in
+            DispatchQueue.main.async {
+                self.todayWeatherView.configure(with: model)
+            }
+        })
     }
 
     private func configure() {
@@ -47,9 +50,5 @@ class ViewController: UIViewController {
             $0.trailing.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
-    }
-    
-    private func configureWithData() {
-        provider.getData(for: city)
     }
 }
