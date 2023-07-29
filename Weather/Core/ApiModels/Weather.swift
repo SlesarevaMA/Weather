@@ -41,14 +41,18 @@ struct Main: Codable {
 }
 
 struct Sys: Codable {
-    let type, id: Int
+    let type: Int
+    let id: Int
     let country: String
-    let sunrise, sunset: Int
+    let sunrise: Int
+    let sunset: Int
 }
 
 struct Weather: Codable {
     let id: Int
-    let main, description, icon: String
+    let main: String
+    let description: String
+    let icon: String
 }
 
 struct Wind: Codable {

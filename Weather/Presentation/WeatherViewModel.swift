@@ -19,14 +19,14 @@ final class WeatherViewModelImpl: WeatherViewModel {
         
     private let cityRequestService: CityRequestService
     private let weatherRequestService: WeatherRequestService
-    private let mapper: Mapper
+    private let mapper: WeatherMapper
     
     private var cancellable: AnyCancellable?
         
     init(
         cityRequestService: CityRequestService = ServiceAssembly.cityRequestService,
         weatherRequestService: WeatherRequestService = ServiceAssembly.weatherRequestService,
-        mapper: Mapper = MapperImpl()
+        mapper: WeatherMapper = WeatherMapperImpl()
     ) {
         self.cityRequestService = cityRequestService
         self.weatherRequestService = weatherRequestService

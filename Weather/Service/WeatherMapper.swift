@@ -10,12 +10,12 @@ private enum Constants {
     static let bar: Double = 1.33
 }
 
-protocol Mapper {
+protocol WeatherMapper {
     func mapCoordinates(from apiModel: City) -> Coordinates
     func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherModel
 }
 
-final class MapperImpl: Mapper {
+final class WeatherMapperImpl: WeatherMapper {
     func mapCoordinates(from apiModel: City) -> Coordinates {
         return Coordinates(latitude: apiModel.lat, longitude: apiModel.lon)
     }
