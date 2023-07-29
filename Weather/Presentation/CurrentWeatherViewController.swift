@@ -9,6 +9,10 @@ import UIKit
 import SnapKit
 import Combine
 
+private enum Metrics {
+    static let backgroundColor: UIColor = .systemCyan
+}
+
 final class CurrentWeatherViewController: UIViewController {
     private let todayWeatherView = TodayWeatherView()
     private var viewModel: WeatherViewModel = WeatherViewModelImpl()
@@ -23,7 +27,7 @@ final class CurrentWeatherViewController: UIViewController {
     }
     
     private func configure() {
-        view.backgroundColor = .white
+        view.backgroundColor = Metrics.backgroundColor
         view.addSubview(todayWeatherView)
     }
     

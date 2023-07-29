@@ -13,9 +13,24 @@ private enum Metrics {
     static let horizontalSpacing: CGFloat = 15
     static let verticalSpacing: CGFloat = 8
     static let maxVerticalSpacing: CGFloat = 25
+    
+    enum Font {
+        static let title: UIFont = .systemFont(ofSize: 22, weight: .semibold)
+        static let city: UIFont = .systemFont(ofSize: 30)
+        static let temperature: UIFont = .systemFont(ofSize: 25, weight: .semibold)
+        static let feelsLikeTemperature: UIFont = .systemFont(ofSize: 22)
+        static let description: UIFont = .systemFont(ofSize: 20, weight: .semibold)
+        static let additional: UIFont = .systemFont(ofSize: 20)
+    }
+    
+    enum Color {
+        static let text: UIColor = .white
+        static let background: UIColor = .systemCyan
+    }
 }
 
 final class TodayWeatherView: UIView {
+    private let titleLabel = UILabel()
     private let cityTextField = UITextField()
     private let temperatureLabel = UILabel()
     private let feelsLikeTemperatureLabel = UILabel()
@@ -67,19 +82,24 @@ final class TodayWeatherView: UIView {
     }
     
     private func addSubview() {
-        [cityTextField, temperatureLabel, feelsLikeTemperatureLabel, extremumTemperatureLabel,
+        [titleLabel, cityTextField, temperatureLabel, feelsLikeTemperatureLabel, extremumTemperatureLabel,
          descriptionLabel, pressureLabel]
             .forEach { addSubview($0) }
     }
     
     private func addConstraint() {
-        cityTextField.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().multipliedBy(0.5)
         }
         
+        cityTextField.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Metrics.maxVerticalSpacing)
+            $0.centerX.equalToSuperview()
+        }
+        
         temperatureLabel.snp.makeConstraints {
-            $0.top.equalTo(cityTextField.snp.bottom).offset(Metrics.verticalSpacing)
+            $0.top.equalTo(cityTextField.snp.bottom).offset(Metrics.maxVerticalSpacing)
             $0.centerX.equalToSuperview()
         }
         
@@ -89,16 +109,12 @@ final class TodayWeatherView: UIView {
         }
         
         extremumTemperatureLabel.snp.makeConstraints {
-            $0.top
-                .equalTo(feelsLikeTemperatureLabel.snp.bottom)
-                .offset(Metrics.verticalSpacing)
+            $0.top.equalTo(feelsLikeTemperatureLabel.snp.bottom).offset(Metrics.verticalSpacing)
             $0.centerX.equalToSuperview()
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top
-                .equalTo(extremumTemperatureLabel.snp.bottom)
-                .offset(Metrics.verticalSpacing)
+            $0.top.equalTo(extremumTemperatureLabel.snp.bottom).offset(Metrics.verticalSpacing)
             $0.centerX.equalToSuperview()
         }
         
@@ -109,9 +125,34 @@ final class TodayWeatherView: UIView {
     }
     
     private func configureViews() {
+        titleLabel.text = "What's the weather in"
+        titleLabel.textColor = Metrics.Color.text
+        titleLabel.font = Metrics.Font.title
+        
         cityTextField.addTarget(self, action: #selector(setText), for: .editingChanged)
-        cityTextField.placeholder = "City"
+        cityTextField.attributedPlaceholder = NSAttributedString(
+            string: "City",
+            attributes: [.foregroundColor: UIColor.systemGray5]
+        )
+        cityTextField.textColor = Metrics.Color.text
         cityTextField.borderStyle = .roundedRect
+        cityTextField.backgroundColor = Metrics.Color.background
+        cityTextField.font = Metrics.Font.city
+        
+        temperatureLabel.textColor = Metrics.Color.text
+        temperatureLabel.font = Metrics.Font.temperature
+        
+        feelsLikeTemperatureLabel.textColor = Metrics.Color.text
+        feelsLikeTemperatureLabel.font = Metrics.Font.feelsLikeTemperature
+
+        extremumTemperatureLabel.textColor = Metrics.Color.text
+        extremumTemperatureLabel.font = Metrics.Font.additional
+        
+        descriptionLabel.textColor = Metrics.Color.text
+        descriptionLabel.font = Metrics.Font.description
+        
+        pressureLabel.textColor = Metrics.Color.text
+        pressureLabel.font = Metrics.Font.additional
     }
     
     @objc private func setText() {

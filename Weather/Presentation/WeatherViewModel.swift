@@ -15,7 +15,7 @@ protocol WeatherViewModel {
 
 final class WeatherViewModelImpl: WeatherViewModel {
     let currentWeatherSubject = CurrentValueSubject<WeatherModel?, Never>(nil)
-    let citySubject = CurrentValueSubject<String, Never>("London")
+    let citySubject = CurrentValueSubject<String, Never>("")
         
     private let cityRequestService: CityRequestService
     private let weatherRequestService: WeatherRequestService

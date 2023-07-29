@@ -8,18 +8,6 @@
 import Foundation
 import Combine
 
-enum NetworkError: Error {
-    case noData
-    case invalidRequest
-    case invalidResponse(Int)
-    case other(Error)
-    case decode(Error)
-}
-
-enum WeatherError: Error {
-    case selfReleased
-}
-
 protocol NetworkManager {
     func sendRequest(request: Request) -> AnyPublisher<Data, Error>
 }
