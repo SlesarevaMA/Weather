@@ -6,18 +6,22 @@
 //
 
 import Combine
+import Foundation
 
 protocol WeatherViewModel {
-    func weatherPublisher(for city: String) -> AnyPublisher<WeatherModel?, Never>
+    var citySubject: CurrentValueSubject<String, Never> { get }
+    var currentWeatherSubject: CurrentValueSubject<WeatherModel?, Never> { get }
 }
 
 final class WeatherViewModelImpl: WeatherViewModel {
-    @Published var city: String = "London"
-    @Published var currentWeather: WeatherModel?
+    let currentWeatherSubject = CurrentValueSubject<WeatherModel?, Never>(nil)
+    let citySubject = CurrentValueSubject<String, Never>("London")
         
     private let cityRequestService: CityRequestService
     private let weatherRequestService: WeatherRequestService
     private let mapper: Mapper
+    
+    private var cancellable: AnyCancellable?
         
     init(
         cityRequestService: CityRequestService = ServiceAssembly.cityRequestService,
@@ -27,16 +31,30 @@ final class WeatherViewModelImpl: WeatherViewModel {
         self.cityRequestService = cityRequestService
         self.weatherRequestService = weatherRequestService
         self.mapper = mapper
+        
+        bind()
     }
     
-    func weatherPublisher(for city: String) -> AnyPublisher<WeatherModel?, Never> {
-        return getData(for: city)
-            .map { Optional($0) }
-            .replaceError(with: nil)
-            .eraseToAnyPublisher()
+    private func bind() {
+        cancellable = citySubject
+            .filter { !$0.isEmpty }
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .flatMap { [weak self] city in
+                guard let self else {
+                    return Just<WeatherModel?>(nil)
+                        .eraseToAnyPublisher()
+                }
+                
+                return self.getDataPublisher(for: city)
+                    .map { Optional($0) }
+                    .replaceError(with: nil)
+                    .eraseToAnyPublisher()
+            }
+            .receive(on: RunLoop.main)
+            .assign(to: \.currentWeatherSubject.value, on: self)
     }
     
-    private func getData(for city: String) -> AnyPublisher<WeatherModel, Error> {
+    private func getDataPublisher(for city: String) -> AnyPublisher<WeatherModel, Error> {
         cityRequestService.requestCityData(city: city)
             .compactMap(\.first)
             .map(mapper.mapCoordinates)

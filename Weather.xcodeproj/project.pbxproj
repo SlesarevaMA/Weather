@@ -145,7 +145,6 @@
 				ABDF21912A5ED5CA00320152 /* Core */,
 				ABDF21822A5DBC0D00320152 /* Service */,
 				ABDF21942A5ED62400320152 /* Presentation */,
-				AB9D53C92A7135F900A01F6E /* WeatherViewModel.swift */,
 				ABDF218E2A5EC74800320152 /* Supporting Files */,
 			);
 			path = Weather;
@@ -200,6 +199,7 @@
 		ABDF21942A5ED62400320152 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				AB9D53C92A7135F900A01F6E /* WeatherViewModel.swift */,
 				ABDF21722A5DBB2700320152 /* CurrentWeatherViewController.swift */,
 				AB9D53B52A68109700A01F6E /* TodayWeatherView.swift */,
 			);

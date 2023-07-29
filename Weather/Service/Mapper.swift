@@ -28,7 +28,7 @@ final class MapperImpl: Mapper {
         let pressure = Int(Double(apiModel.main.pressure) / Constants.bar)
         
         return WeatherModel(
-            description: apiModel.weather[0].description,
+            description: apiModel.weather.first?.description ?? "",
             temperature: String(format: "%.1f", temperature),
             feelsLikeTemperature:  String(format: "%.1f", feelsLikeTemperature),
             minTemperature:  String(format: "%.1f", minTemperature),

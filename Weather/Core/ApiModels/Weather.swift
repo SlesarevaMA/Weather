@@ -15,7 +15,8 @@ struct WeatherParameters: Codable {
     let clouds: Clouds
     let dt: Int
     let sys: Sys
-    let timezone, id: Int
+    let timezone: Int
+    let id: Int
     let name: String
     let cod: Int
 }
@@ -30,8 +31,13 @@ struct Coord: Codable {
 
 struct Main: Codable {
     let temp: Double
-    let feelsLike, tempMin, tempMax: Double
-    let pressure, humidity, seaLevel, grndLevel: Int
+    let feelsLike: Double
+    let tempMin: Double
+    let tempMax: Double
+    let pressure: Int
+    let humidity: Int
+    let seaLevel: Int?
+    let grndLevel: Int?
 }
 
 struct Sys: Codable {
@@ -48,5 +54,5 @@ struct Weather: Codable {
 struct Wind: Codable {
     let speed: Double
     let deg: Int
-    let gust: Double
+    let gust: Double?
 }
