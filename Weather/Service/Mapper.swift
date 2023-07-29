@@ -21,7 +21,6 @@ final class MapperImpl: Mapper {
     }
     
     func mapWeatherViewModel(from apiModel: WeatherParameters) -> WeatherModel {
-        
         let temperature = apiModel.main.temp - Constants.kelvin
         let feelsLikeTemperature = apiModel.main.feelsLike - Constants.kelvin
         let minTemperature = apiModel.main.tempMin - Constants.kelvin

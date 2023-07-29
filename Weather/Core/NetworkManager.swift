@@ -26,7 +26,6 @@ protocol NetworkManager {
 }
 
 final class NetworkManagerImpl: NetworkManager {
-    
     private let session: URLSession
     
     init(session: URLSession = URLSession.shared) {

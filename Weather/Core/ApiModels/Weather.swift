@@ -5,8 +5,6 @@
 //  Created by Margarita Slesareva on 18.07.2023.
 //
 
-import Foundation
-
 struct WeatherParameters: Codable {
     let coord: Coord
     let weather: [Weather]

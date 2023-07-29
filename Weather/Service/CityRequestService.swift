@@ -14,7 +14,6 @@ protocol CityRequestService {
 }
 
 final class CityRequestServiceImpl: CityRequestService {
-    
     private let networkManager: NetworkManager
     private let decoder: JSONDecoder
     

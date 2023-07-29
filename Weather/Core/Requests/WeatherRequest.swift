@@ -8,7 +8,6 @@
 import Foundation
 
 struct WeatherRequest: Request {
-
     private let coordinates: Coordinates
     
     init(coordinates: Coordinates) {
