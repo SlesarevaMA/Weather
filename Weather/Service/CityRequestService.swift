@@ -6,18 +6,17 @@
 //
 
 import Foundation
+import Combine
 
 protocol CityRequestService {
     func requestCityData(city: String, completion: @escaping (Result<[City], Error>) -> Void)
+    func requestCityData(city: String) -> AnyPublisher<[City], Error>
 }
 
 final class CityRequestServiceImpl: CityRequestService {
     
     private let networkManager: NetworkManager
     private let decoder: JSONDecoder
-//    private let mapper: Mapper
-    
-//    private let cityParser: CityParser
     
     init(networkManager: NetworkManager, decoder: JSONDecoder) {
         self.networkManager = networkManager
@@ -40,5 +39,13 @@ final class CityRequestServiceImpl: CityRequestService {
                 completion(.failure(error))
             }
         }
+    }
+    
+    func requestCityData(city: String) -> AnyPublisher<[City], Error> {
+        let cityRequest = CityRequest(city: city)
+        
+        return networkManager.sendRequest(request: cityRequest)
+            .decode(type: [City].self, decoder: decoder)
+            .eraseToAnyPublisher()
     }
 }

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import Combine
 
 protocol DataProvider {
+    func getData(for city: String) -> AnyPublisher<WeatherModel, Error>
 }
 
 final class DataProviderImpl: DataProvider {
@@ -21,35 +23,20 @@ final class DataProviderImpl: DataProvider {
         self.mapper = mapper
     }
     
-    func getData(for city: String, completion: @escaping (WeatherModel) -> Void) {
-        requestCityData(city: city) { model in
-            completion(model)
-        }
-    }
-
-    private func requestCityData(city: String, completion: @escaping (WeatherModel) -> Void) {
-        cityRequestService.requestCityData(city: city) { result in
-            switch result {
-            case .success(let city):
-                let coordinates = self.mapper.mapCoordinates(from: city[0])
-                self.requestWeather(city: city[0].name, for: coordinates) { model in
-                    completion(model)
+    func getData(for city: String) -> AnyPublisher<WeatherModel, Error> {
+        cityRequestService.requestCityData(city: city)
+            .compactMap(\.first)
+            .map(mapper.mapCoordinates)
+            .flatMap { [weak self] coordinates in
+                guard let self else {
+                    return Fail<WeatherModel, Error>(error: WeatherError.selfReleased)
+                        .eraseToAnyPublisher()
                 }
-            case .failure(let error):
-                print(error)
+                
+                return self.weatherRequestService.requestWeather(coordinates: coordinates)
+                    .map(self.mapper.mapWeatherViewModel)
+                    .eraseToAnyPublisher()
             }
-        }
-    }
-    
-    private func requestWeather(city: String, for coordinates: Coordinates, completion: @escaping (WeatherModel) -> Void) {
-        weatherRequestService.requestWeather(coordinates: coordinates) { result in
-            switch result {
-            case .success(let weatherParametrs):
-                let weatherViewModel = self.mapper.mapWeatherViewModel(from: weatherParametrs)
-                completion(weatherViewModel)
-            case .failure(let error):
-                print(error)
-            }
-        }
+            .eraseToAnyPublisher()
     }
 }

@@ -6,32 +6,26 @@
 //
 
 import Foundation
+import Combine
 
 protocol WeatherRequestService {
-    func requestWeather(coordinates: Coordinates, completion: @escaping (Result<WeatherParameters, Error>) -> Void)
+    func requestWeather(coordinates: Coordinates) -> AnyPublisher<WeatherParameters, Error>
 }
 
 final class WeatherRequestServiceImpl: WeatherRequestService {
     private let networkManager: NetworkManager
     private let decoder: JSONDecoder
-        
+    
     init(networkManager: NetworkManager, decoder: JSONDecoder) {
         self.networkManager = networkManager
         self.decoder = decoder
     }
     
-    func requestWeather(coordinates: Coordinates, completion: @escaping (Result<WeatherParameters, Error>) -> Void) {
-        let weatherRequest = WeatherRequest(latitude: coordinates.latitude, longitude: coordinates.longitude)
+    func requestWeather(coordinates: Coordinates) -> AnyPublisher<WeatherParameters, Error> {
+        let weatherRequest = WeatherRequest(coordinates: coordinates)
         
-        networkManager.sendRequest(request: weatherRequest) { result in
-            switch result {
-            case .success(let data):
-                if let weatherParameters = try? self.decoder.decode(WeatherParameters.self, from: data) {
-                    completion(.success(weatherParameters))
-                }
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        return networkManager.sendRequest(request: weatherRequest)
+            .decode(type: WeatherParameters.self, decoder: decoder)
+            .eraseToAnyPublisher()
     }
 }

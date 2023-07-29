@@ -7,9 +7,9 @@
 
 struct WeatherModel {
     let description: String
-    let temperature: Double
-    let feelsLikeTemperature: Double
-    let minTemperature: Double
-    let maxTemperature: Double
+    let temperature: String
+    let feelsLikeTemperature: String
+    let minTemperature: String
+    let maxTemperature: String
     let pressure: Int
 }
